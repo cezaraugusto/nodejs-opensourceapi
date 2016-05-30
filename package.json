@@ -1,22 +1,19 @@
 {
   "name": "nodejs-opensourceapi",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "node-opensourceapi is an API Wrapper that allows you to query the Open Source License API with NodeJS",
   "license": "MIT",
   "repository": "cezaraugusto/nodejs-opensourceapi",
   "author": {
     "name": "Cezar Augusto",
     "email": "cezaraugusto@outlook.it",
-    "url": "http://cezaraugusto.net"
+    "url": "https://cezaraugusto.net"
   },
   "bin": {
     "nodejs-opensourceapi": "./index.js"
   },
   "engines": {
     "node": ">=0.10"
-  },
-  "scripts": {
-    "lint": "standard"
   },
   "files": [
     "index.js"
@@ -25,8 +22,5 @@
     "opensourceapi",
     "api",
     "license"
-  ],
-  "devDependencies": {
-    "standard": "^7.1.0"
-  }
+  ]
 }

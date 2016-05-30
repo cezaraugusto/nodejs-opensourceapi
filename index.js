@@ -1,32 +1,39 @@
 'use strict'
 var https = require('https')
+var path = require('path')
+
+var request = function (resource, cb) {
+  var options = {
+    host: 'api.opensource.org',
+    path: resource,
+    method: 'GET'
+  }
+
+  https.get(options, function (response) {
+    response.setEncoding('utf8')
+    var body = []
+    response.on('error', function (error) {
+      console.error('Got error: ' + error.message)
+    })
+    .on('data', function (chunk) {
+      body += chunk
+    })
+    .on('end', function () {
+      cb(JSON.parse(body))
+    })
+  }).end()
+}
 
 var LicensesAPI = {
-  init: 'https://api.opensource.org/',
-  all: function () {
-    return this.request('licenses/')
+  all: function (cb) {
+    return request('/licenses/', cb)
   },
-  tagged: function (tag) {
-    return this.request('licenses/' + tag)
+  tagged: function (tag, cb) {
+    return request(path.join('/licenses', tag), cb)
   },
-  get: function (id) {
-    return this.request('license/' + id)
-  },
-  request: function (resource) {
-    https.get(this.init + resource, function (response) {
-      response.setEncoding('utf8')
-      var body = []
-      response.on('error', function (error) {
-        console.log('Got error: ' + error.message)
-      })
-      .on('data', function (chunk) {
-        body += chunk
-      })
-      .on('end', function () {
-        var result = JSON.parse(body)
-        console.log(result)
-      })
-    })
+  get: function (id, cb) {
+    return request(path.join('/license', id), cb)
   }
 }
+
 module.exports = LicensesAPI
